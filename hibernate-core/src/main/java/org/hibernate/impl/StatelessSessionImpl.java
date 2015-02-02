@@ -83,10 +83,12 @@ public class StatelessSessionImpl extends AbstractSessionImpl
 
 	private JDBCContext jdbcContext;
 	private PersistenceContext temporaryPersistenceContext = new StatefulPersistenceContext( this );
+	private long timestamp;
 
-	StatelessSessionImpl(Connection connection, SessionFactoryImpl factory) {
+	StatelessSessionImpl(Connection connection, SessionFactoryImpl factory, long timestamp) {
 		super( factory );
 		this.jdbcContext = new JDBCContext( this, connection, EmptyInterceptor.INSTANCE );
+		this.timestamp = timestamp;
 	}
 
 
@@ -440,7 +442,7 @@ public class StatelessSessionImpl extends AbstractSessionImpl
 	}
 
 	public long getTimestamp() {
-		throw new UnsupportedOperationException();
+		return timestamp;
 	}
 
 	public String guessEntityName(Object entity) throws HibernateException {
