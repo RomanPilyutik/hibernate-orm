@@ -600,7 +600,7 @@ public final class SessionFactoryImpl implements SessionFactory, SessionFactoryI
 	}
 
 	public StatelessSession openStatelessSession() {
-		return new StatelessSessionImpl( null, this );
+		return new StatelessSessionImpl( null, this, this.settings.getRegionFactory().nextTimestamp() );
 	}
 
 	public StatelessSession openStatelessSession(Connection connection) {
